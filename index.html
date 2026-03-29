@@ -1,1 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MidedBrown | Official Social Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@500&display=swap');
+        
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3b82f6;
+            --bg-dark: #020617;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
+        body {
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- AMBIENT ANIMATED BACKGROUND --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.1) 0%, transparent 40%),
+                #000;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .social-btn {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            overflow: hidden;
+        }
+
+        .social-btn:hover:not(.locked) {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .social-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        /* --- STATS BADGE --- */
+        .stat-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* --- ANIMATIONS --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .verified-check {
+            color: var(--secondary);
+            margin-left: 5px;
+            font-size: 0.9em;
+        }
+
+        .tech-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex justify-center min-h-screen">
+
+    <div class="ambient-bg"></div>
+
+    <!-- START SCREEN -->
+    <div id="welcome-screen" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-8 transition-all duration-700">
+        <div class="text-center">
+            <div class="mb-6">
+                <img src="https://i.ibb.co/FtsMMh0/PACKAGES-AMOUNT-1-GB-GH-6-2-GB-GH-11-3-GB-GH-17-4-GB-GH-22-5-GB-GH-26-50-6-1-10-GB-GH-4.jpg" 
+                     class="w-24 h-24 rounded-full border-2 border-blue-500 mx-auto animate-pulse" alt="Logo">
+            </div>
+            <h1 class="text-3xl font-extrabold text-white mb-2">Connect with MIDEDBROWN</h1>
+            <p class="text-slate-400 text-sm mb-8">Your Gateway to Community & Connectivity</p>
+            <button onclick="dismissWelcome()" class="px-12 py-4 bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-900/40 hover:bg-blue-500 transition-all">
+                VIEW SOCIAL HUB
+            </button>
+        </div>
+    </div>
+
+    <main class="w-full max-w-md px-5 py-10 space-y-8 relative z-10">
+        
+        <!-- HEADER / BRAND PROFILE -->
+        <header class="text-center fade-up" style="animation-delay: 0.1s;">
+            <div class="relative inline-block mb-4">
+                <img src="https://i.ibb.co/FtsMMh0/PACKAGES-AMOUNT-1-GB-GH-6-2-GB-GH-11-3-GB-GH-17-4-GB-GH-22-5-GB-GH-26-50-6-1-10-GH-4.jpg" 
+                     class="w-24 h-24 rounded-full border-4 border-slate-900 shadow-2xl" alt="Logo">
+                <div class="absolute bottom-1 right-1 bg-blue-600 text-white p-1 rounded-full border-2 border-slate-900">
+                    <i class="fas fa-check text-[10px]"></i>
+                </div>
+            </div>
+            <h2 class="text-2xl font-extrabold text-white">MidedBrown<i class="fas fa-certificate verified-check"></i></h2>
+            <p class="text-slate-400 text-sm mt-1">Creator & Connectivity Specialist</p>
+        </header>
+
+        <!-- ABOUT SECTION -->
+        <section class="glass-card p-6 fade-up" style="animation-delay: 0.2s;">
+            <h3 class="tech-label mb-2">Our Mission</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                Welcome to my official hub. Beyond providing affordable data, I aim to build a digital community where we stay connected, share updates, and grow together. Join the journey across all my platforms below!
+            </p>
+        </section>
+
+        <!-- PRIMARY CALL TO ACTION (SHOP) -->
+        <section class="fade-up" style="animation-delay: 0.3s;">
+            <a href="https://shr.pn/MB_Data_plug" target="_blank" class="social-btn bg-gradient-to-r from-blue-600/20 to-cyan-500/10 border-blue-500/30">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mr-4 text-cyan-400">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-white font-bold text-lg">Official Store</span>
+                        <span class="stat-badge">24/7 ACTIVE</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Secure Automated Data Sales</p>
+                </div>
+            </a>
+        </section>
+
+        <!-- SOCIAL MEDIA GRID -->
+        <section class="space-y-3 fade-up" style="animation-delay: 0.4s;">
+            <div class="flex items-center px-1">
+                <span class="tech-label opacity-60">Join the Community</span>
+                <div class="flex-grow h-[1px] bg-white/10 ml-4"></div>
+            </div>
+
+            <!-- WhatsApp -->
+            <a href="https://whatsapp.com/channel/0029Vb84FZb0lwgh0Cxs7R2g" target="_blank" class="social-btn">
+                <div class="w-11 h-11 rounded-full bg-green-500/10 flex items-center justify-center mr-4 text-green-500">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center">
+                        <span class="text-white font-semibold">WhatsApp Channel</span>
+                        <span class="stat-badge text-green-500">JOINED BY 5k+</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@midedbrown_data_plug" target="_blank" class="social-btn">
+                <div class="w-11 h-11 rounded-full bg-white/5 flex items-center justify-center mr-4 text-white">
+                    <i class="fab fa-tiktok text-xl"></i>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center">
+                        <span class="text-white font-semibold">TikTok Feed</span>
+                        <span class="stat-badge text-white">WATCH VIDEOS</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Placeholders -->
+            <div class="social-btn locked">
+                <div class="w-11 h-11 rounded-full bg-sky-500/10 flex items-center justify-center mr-4 text-sky-400">
+                    <i class="fab fa-telegram-plane text-xl"></i>
+                </div>
+                <div class="flex-grow flex justify-between items-center">
+                    <span class="text-white font-semibold">Telegram Group</span>
+                    <span class="text-[9px] uppercase tracking-tighter opacity-50">Connecting...</span>
+                </div>
+            </div>
+
+            <div class="social-btn locked">
+                <div class="w-11 h-11 rounded-full bg-blue-600/10 flex items-center justify-center mr-4 text-blue-500">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </div>
+                <div class="flex-grow flex justify-between items-center">
+                    <span class="text-white font-semibold">Facebook Page</span>
+                    <span class="text-[9px] uppercase tracking-tighter opacity-50">Launching...</span>
+                </div>
+            </div>
+
+            <div class="social-btn locked">
+                <div class="w-11 h-11 rounded-full bg-pink-500/10 flex items-center justify-center mr-4 text-pink-500">
+                    <i class="fab fa-instagram text-xl"></i>
+                </div>
+                <div class="flex-grow flex justify-between items-center">
+                    <span class="text-white font-semibold">Instagram Profile</span>
+                    <span class="text-[9px] uppercase tracking-tighter opacity-50">Coming Soon</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center pt-8 pb-12 fade-up" style="animation-delay: 0.5s;">
+            <div class="flex justify-center gap-6 text-slate-500 mb-6">
+                <i class="fas fa-shield-virus hover:text-blue-500 cursor-help" title="Safe Environment"></i>
+                <i class="fas fa-user-friends hover:text-blue-500 cursor-help" title="Community First"></i>
+                <i class="fas fa-headset hover:text-blue-500 cursor-help" title="Support Available"></i>
+            </div>
+            <p class="tech-label opacity-40">&copy; 2026 MidedBrown Brand Hub</p>
+        </footer>
+    </main>
+
+    <script>
+        function dismissWelcome() {
+            const welcome = document.getElementById('welcome-screen');
+            welcome.style.opacity = '0';
+            welcome.style.pointerEvents = 'none';
+            setTimeout(() => {
+                welcome.style.display = 'none';
+            }, 700);
+        }
+
+        // Add small vibration effect to buttons for premium feel
+        document.querySelectorAll('.social-btn:not(.locked)').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if ('vibrate' in navigator) navigator.vibrate(5);
+            });
+        });
+    </script>
+</body>
+  </html>
